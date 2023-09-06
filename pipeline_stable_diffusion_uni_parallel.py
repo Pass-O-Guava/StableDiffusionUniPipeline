@@ -145,7 +145,7 @@ class StableDiffusionUniParallelPipeline(DiffusionPipeline, TextualInversionLoad
         single_gpu_parallel=False, #强制单GPU并行（默认关闭，有多卡优先双GPU并行）
     ):
 
-        # logger.warning("目前版本不支持 safety_checker")
+        logger.warning("==> 🤔 The current version does not support safety_checker.")
         # super().__init__()
                 
         # 无GPU直接抛错返回
@@ -191,7 +191,7 @@ class StableDiffusionUniParallelPipeline(DiffusionPipeline, TextualInversionLoad
         
         self.vae_scale_factor = 2 ** (len(self.vae.config.block_out_channels) - 1)
         self.image_processor = VaeImageProcessor(vae_scale_factor=self.vae_scale_factor)
-        # self.register_to_config(requires_safety_checker=requires_safety_checker)
+        self.register_to_config(requires_safety_checker=False)
         
 
     def enable_vae_slicing(self):
