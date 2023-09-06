@@ -48,10 +48,10 @@ import torch
 from PIL import Image
 from diffusers import StableDiffusionUniPipeline
 
-pipe = StableDiffusionUniPipeline.from_pretrained("runwayml/stable-diffusion-v1-5").to("cuda")
-
 prompt = "a photo of an astronaut riding a horse on mars"
 input_imge = Image.open("./input.png")
+
+pipe = StableDiffusionUniPipeline.from_pretrained("runwayml/stable-diffusion-v1-5").to("cuda")
         
 # txt2img
 image = pipe(prompt).images[0]
@@ -67,20 +67,17 @@ import torch
 from PIL import Image
 from diffusers import StableDiffusionUniParallelPipeline
 
-pipe = StableDiffusionUniParallelPipeline.from_pretrained("runwayml/stable-diffusion-v1-5").to("cuda")
 
 prompt = "a photo of an astronaut riding a horse on mars"
 input_imge = Image.open("./input.png")
         
 # Double-GPUs parallel
 pipe = StableDiffusionUniParallelPipeline.from_pretrained("runwayml/stable-diffusion-v1-5")
-prompt = "a photo of an astronaut riding a horse on mars"
 image = pipe(prompt).images[0] # txt2img
 image = pipe(prompt, input_imge).images[0] # img2img
 
 # Single-GPU parallel
 pipe = StableDiffusionUniParallelPipeline.from_pretrained("runwayml/stable-diffusion-v1-5", single_gpu_parallel=True)
-prompt = "a photo of an astronaut riding a horse on mars"
 image = pipe(prompt).images[0] # txt2img
 image = pipe(prompt, input_imge).images[0] # img2img
 ```
